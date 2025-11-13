@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Summarizer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Text Summarizer</h1>
+
+    <form method="post" action="/summarize">
+        <label for="text">Enter text to summarize</label>
+        <textarea id="text" name="text">{{ input_text or "" }}</textarea>
+        <button type="submit">Summarize</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <h2>Summary</h2>
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">
+        <h3>Error</h3>
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+</div>
+</body>
+</html>
