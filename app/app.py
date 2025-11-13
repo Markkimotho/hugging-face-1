@@ -39,15 +39,45 @@ async def summarize(request: Request, text: str = Form(...)):
                 "input_text": text
             }
         )
+    
+    # Helper function to check summary quality
+    def poor_quality(summary: str) -> bool:
+        if len(summary.split()) < 10:
+            return True
+        if "the text" in summary.lower():
+            return True
+        return False
 
+    # Add a guiding prefix to the text input to help model summarize better
+    prompt_text = (
+        "Summarize the following text into a concise, clear, and meaningful summary:\n\n" 
+        + text
+    )
+    
     try:
+        # First summarization attempt
         summary = summarizer(
-            text,
-            max_length=120,
-            min_length=30,
+            prompt_text,
+            max_length=130,
+            min_length=40,
             truncation=True,
             do_sample=False
         )[0]["summary_text"]
+
+        # If summary is poor quality, retry once with a stronger prompt
+        if poor_quality(summary):
+            stronger_prompt = (
+                "You are an expert summarization engine. "
+                "Please produce a high-quality, insightful summary focusing on key points only:\n\n"
+                + text
+            )
+            summary = summarizer(
+                stronger_prompt,
+                max_length=150,
+                min_length=50,
+                truncation=True,
+                do_sample=False
+            )[0]["summary_text"]
 
         return templates.TemplateResponse(
             "index.html",
