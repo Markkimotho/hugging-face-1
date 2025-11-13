@@ -24,7 +24,7 @@ This project is a simple FastAPI application that uses a Hugging Face transforme
 │   ├── app.py
 │   ├── static/
 │   │   ├── style.css
-│   │   └── script.js (optional)
+│   │  
 │   └── templates/
 │       └── index.html
 ├── Makefile
