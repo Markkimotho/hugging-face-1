@@ -159,5 +159,5 @@ These are listed in `requirements.txt`.
 
 ## License
 
-This project is provided under the MIT License.
-```
+This project is provided under the MIT License. 
+Free To Use and Recycle
