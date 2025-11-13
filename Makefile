@@ -42,3 +42,17 @@ clean:
 
 # Default target: install dependencies, lint, test, and format
 all: install lint test format
+
+# Commit all changes with a message and push to GitHub
+commit:
+	git add .
+	git commit -m "$(m)"
+	git push
+
+# Show git status
+status:
+	git status
+
+# Pull latest changes from the current branch
+pull:
+	git pull
